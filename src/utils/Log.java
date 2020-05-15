@@ -1,24 +1,25 @@
 package utils;
 
-//TODO: make continuous thread
 public class Log implements Runnable {
 
-    private static boolean isRunning = false;
-    private Thread t;
+    private static Thread t;
 
-    public void print(String msg) {
-        if (!isRunning) {
+    public Log() {
+        if (t == null) {
+            t = new Thread(this);
+            t.setName("Log_thread");
+            t.setPriority(8);
+            t.setDaemon(true);
             run();
         }
+    }
+
+    public void print(String msg) {
         System.out.println(msg);
     }
 
+    @Override
     public void run() {
-        t = new Thread(this);
-        t.setName("Log thread");
-        t.setPriority(7);
-        t.setDaemon(true);
-        t.start();
-        isRunning = true;
+        System.out.println( t.getName() + " is running!\n");
     }
 }

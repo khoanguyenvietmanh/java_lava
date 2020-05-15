@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import utils.Array_Controller;
 import utils.Colorful_Rectangle;
 import utils.Consts;
+import utils.Log;
 
 public class Controller {
 
