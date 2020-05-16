@@ -5,14 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import utils.Array_Controller;
-import utils.Colorful_Rectangle;
-import utils.Consts;
-import utils.Log;
+import utils.*;
 
 public class Controller {
 
     private final Log my_Log = new Log();
+    private final Async_Painter painter = new Async_Painter();
 
     @FXML
     private Button cancel_button;
@@ -43,46 +41,48 @@ public class Controller {
 
     @FXML
     void start_running(ActionEvent event) {
-        my_Log.print("Start button clicked!\n" +
-                "Now running!\n");
+        Log x = new Log();
+        x.print("Start button clicked!\n" +
+                "Now running!");
     }
 
     @FXML
     void one_step_forward(ActionEvent event) {
-        my_Log.print("Next button pressed:\n" +
-                "Go to next action\n");
+        Log y = new Log();
+        y.print("Next button pressed:\n" +
+                "Go to next action");
     }
 
     @FXML
     void pause_running(ActionEvent event) {
         my_Log.print("Pause button pressed:\n" +
-                "Stop action\n");
+                "Stop action");
     }
 
     @FXML
     void one_step_backward(ActionEvent event) {
         my_Log.print("Backward button pressed:\n" +
-                "Go to previous action\n");
+                "Go to previous action");
     }
 
     @FXML
     void back_to_start(ActionEvent event) {
         my_Log.print("Reset button pressed:\n" +
-                "Back to top\n");
+                "Back to top");
 
     }
 
     @FXML
     void cancel_program(ActionEvent event) {
         my_Log.print("Cancel button pressed:\n" +
-                "Now exiting\n");
+                "Now exiting");
         System.exit(0);
     }
 
     @FXML
     void generate_random(ActionEvent event) {
         my_Log.print("Random button pressed:\n" +
-                "Generating new random values\n");
+                "Generating new random values");
 
         //Get parameters of rectangles
         visual_board.getChildren().clear();
@@ -96,7 +96,7 @@ public class Controller {
         my_Log.print("Now painting array");
         paint_Board(no_of_rect, width_per_rect, my_Array);
 
-        my_Log.print("Finish painting\n");
+        my_Log.print("Finish painting");
     }
 
 

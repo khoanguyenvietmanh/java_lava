@@ -2,15 +2,16 @@ package utils;
 
 public class Log implements Runnable {
 
-    private static Thread t;
+    static Thread t;
 
     public Log() {
         if (t == null) {
+            System.out.println("Log thread is null");
             t = new Thread(this);
             t.setName("Log_thread");
             t.setPriority(8);
             t.setDaemon(true);
-            run();
+            System.out.println("Create new " + t.getName());
         }
     }
 
@@ -20,6 +21,7 @@ public class Log implements Runnable {
 
     @Override
     public void run() {
-        System.out.println( t.getName() + " is running!\n");
+        System.out.println(t.getName() + " is running!");
     }
+
 }

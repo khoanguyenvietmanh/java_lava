@@ -5,12 +5,30 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
 //TODO: Make this class can access FXML
-public class Async_Painter {
+public class Async_Painter implements Runnable{
+
+    private static Thread t;
 
     @FXML
     private Pane visual_board;
 
-    public void new_paint(int no_of_rect, double width_per_rect, Array_Controller my_Array){
+
+    public Async_Painter() {
+        if (t == null) {
+            t = new Thread(this);
+            t.setName("Painter_thread");
+            t.setPriority(6);
+            t.setDaemon(true);
+            run();
+        }
+    }
+
+    @Override
+    public void run() {
+        System.out.println(t.getName() + " is running!");
+    }
+
+    public synchronized void paint_new_rect(int no_of_rect, double width_per_rect, Array_Controller my_Array){
         new Thread(new Runnable() {
             @Override
             public void run() {
