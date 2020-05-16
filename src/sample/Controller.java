@@ -5,14 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import utils.Array_Controller;
-import utils.Colorful_Rectangle;
-import utils.Consts;
-import utils.Log;
+import utils.*;
+
+import static utils.consts.NUMBER_OF_RECTANGLE;
 
 public class Controller {
 
     private final Log my_Log = new Log();
+    private final Async_Painter painter = new Async_Painter(this);
 
     @FXML
     private Button cancel_button;
@@ -74,19 +74,20 @@ public class Controller {
 
     @FXML
     void cancel_program(ActionEvent event) {
-        my_Log.print("Cancel button pressed:\n" +
+        System.out.println("Cancel button pressed:\n" +
                 "Now exiting\n");
+        Platform.exit();
         System.exit(0);
     }
 
     @FXML
     void generate_random(ActionEvent event) {
         my_Log.print("Random button pressed:\n" +
-                "Generating new random values\n");
+                "Generating new random values");
 
         //Get parameters of rectangles
         visual_board.getChildren().clear();
-        int no_of_rect = (int) Math.round(visual_board.getWidth() / 15);
+        int no_of_rect = (int) Math.round(visual_board.getWidth() / NUMBER_OF_RECTANGLE);
         float width_per_rect = (float) visual_board.getWidth() / no_of_rect;
 
         Array_Controller my_Array = new Array_Controller();
@@ -94,40 +95,15 @@ public class Controller {
 
         //Paint rectangles
         my_Log.print("Now painting array");
-        paint_Board(no_of_rect, width_per_rect, my_Array);
+        painter.paint_new_rect(no_of_rect, width_per_rect, my_Array);
 
         my_Log.print("Finish painting\n");
     }
 
 
-    private void paint_Board(int no_of_rect, double width_per_rect, Array_Controller my_Array) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < no_of_rect; i++) {
-                    double rect_height = Math.min(
-                            my_Array.getNum_array()[i] * 10,
-                            visual_board.getHeight() - Consts.DISTANCE_FROM_RECT_TO_UPPER_BOUND);
-
-                    Colorful_Rectangle rect = new Colorful_Rectangle(
-                            i * width_per_rect,
-                            visual_board.getHeight() - rect_height,
-                            width_per_rect,
-                            rect_height
-                    );
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            visual_board.getChildren().add(rect);
-                        }
-                    });
-                }
-
-            }
-        }).start();
+    public Pane getVisual_board() {
+        return visual_board;
     }
-
 }
 
 

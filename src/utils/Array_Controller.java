@@ -4,11 +4,11 @@ package utils;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 public class Array_Controller {
-    private float[] num_array;
-
+    private float[] num_Array;
 
     private int length;
 
@@ -17,13 +17,19 @@ public class Array_Controller {
     }
 
     public void make(int length) {
+        //Make a array of float between min and max value
+        //Status = Normal
+
         this.length = length;
 
-        num_array = new float[length];
-        Random random = new Random();
-        for (int i = 0; i < length; i++) {
-            num_array[i] = Math.round(random.nextFloat() * 25 + 4);
+        num_Array = new float[length];
 
+        for (int i = 0; i < length; i++) {
+            num_Array[i] = (float) (
+                    ThreadLocalRandom.current().nextDouble(
+                            consts.MINIMUM_RECT_HEIGHT,
+                            consts.MAXIMUM_RECT_HEIGHT
+                    ));
         }
     }
 
@@ -32,17 +38,16 @@ public class Array_Controller {
         this.length = length;
     }
 
-    public void setNum_array(float[] num_array) {
-        this.num_array = num_array;
+    public void setNum_Array(float[] num_Array) {
+        this.num_Array = num_Array;
     }
 
-    public float[] getNum_array() {
-        return num_array;
+    public float[] getNum_Array() {
+        return num_Array;
     }
+
 
     @Getter
-
-
     public int getLength() {
         return length;
     }
