@@ -10,7 +10,7 @@ import utils.*;
 public class Controller {
 
     private final Log my_Log = new Log();
-    private final Async_Painter painter = new Async_Painter();
+    private final Async_Painter painter = new Async_Painter(this);
 
     @FXML
     private Button cancel_button;
@@ -93,39 +93,15 @@ public class Controller {
 
         //Paint rectangles
         my_Log.print("Now painting array");
-        paint_Board(no_of_rect, width_per_rect, my_Array);
+        painter.paint_new_rect(no_of_rect, width_per_rect, my_Array);
 
         my_Log.print("Finish painting\n");
     }
 
 
-    private void paint_Board(int no_of_rect, double width_per_rect, Array_Controller my_Array) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < no_of_rect; i++) {
-                    double rect_height =
-                            (1 - my_Array.getNum_Array()[i]) * visual_board.getHeight();
-
-                    Colorful_Rectangle rect = new Colorful_Rectangle(
-                            i * width_per_rect,
-                            rect_height,
-                            width_per_rect,
-                            visual_board.getHeight() - rect_height
-                    );
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            visual_board.getChildren().add(rect);
-                        }
-                    });
-                }
-
-            }
-        }).start();
+    public Pane getVisual_board() {
+        return visual_board;
     }
-
 }
 
 
