@@ -9,7 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Array_Controller {
     private float[] num_Array;
-    private int[] status_Array;
 
     private int length;
 
@@ -24,15 +23,13 @@ public class Array_Controller {
         this.length = length;
 
         num_Array = new float[length];
-        status_Array = new int[length];
 
         for (int i = 0; i < length; i++) {
             num_Array[i] = (float) (
                     ThreadLocalRandom.current().nextDouble(
-                            consts.MINIMUM_HEIGHT,
-                            consts.MAXIMUM_HEIGHT
+                            consts.MINIMUM_RECT_HEIGHT,
+                            consts.MAXIMUM_RECT_HEIGHT
                     ));
-            status_Array[i] = consts.NORMAL;
         }
     }
 

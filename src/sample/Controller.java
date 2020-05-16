@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import utils.*;
 
+import static utils.consts.NUMBER_OF_RECTANGLE;
+
 public class Controller {
 
     private final Log my_Log = new Log();
@@ -85,7 +87,7 @@ public class Controller {
 
         //Get parameters of rectangles
         visual_board.getChildren().clear();
-        int no_of_rect = (int) Math.round(visual_board.getWidth() / 15);
+        int no_of_rect = (int) Math.round(visual_board.getWidth() / NUMBER_OF_RECTANGLE);
         float width_per_rect = (float) visual_board.getWidth() / no_of_rect;
 
         Array_Controller my_Array = new Array_Controller();

@@ -7,7 +7,7 @@ import static utils.consts.*;
 
 public class Log implements Runnable {
 
-    private static Queue<String> q = new LinkedList<>();
+    private static Queue<String> writelog_Queue = new LinkedList<>();
     private static Thread t;
 
     public Log() {
@@ -23,7 +23,7 @@ public class Log implements Runnable {
     }
 
     public void print(String msg) {
-        q.offer(msg);
+        writelog_Queue.offer(msg);
     }
 
     @Override
@@ -32,11 +32,11 @@ public class Log implements Runnable {
         int rate = STANDARD_LOG_RATE;
 
         while (true) {
-            if (!q.isEmpty()) {
-                System.out.println(q.poll());
-                rate = (int) Math.min(rate * LOG_RATE_INCREASE_RATE, MAXIMUM_LOG_RATE);
+            if (!writelog_Queue.isEmpty()) {
+                System.out.println(writelog_Queue.poll());
+                rate = (int) Math.min(rate * RATE_INCREASE_COEFFICIENT, MAXIMUM_LOG_RATE);
             } else {
-                rate = (int) Math.max(MINIMUM_LOG_RATE, rate * consts.LOG_RATE_DECAY_RATE);
+                rate = (int) Math.max(MINIMUM_LOG_RATE, rate * RATE_DECAY_COEFFICIENT);
             }
             try {
                 Thread.sleep(rate * SLEEP_TIME_PER_RATE);
