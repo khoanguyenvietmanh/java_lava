@@ -41,15 +41,13 @@ public class Controller {
 
     @FXML
     void start_running(ActionEvent event) {
-        Log x = new Log();
-        x.print("Start button clicked!\n" +
+        my_Log.print("Start button clicked!\n" +
                 "Now running!");
     }
 
     @FXML
     void one_step_forward(ActionEvent event) {
-        Log y = new Log();
-        y.print("Next button pressed:\n" +
+        my_Log.print("Next button pressed:\n" +
                 "Go to next action");
     }
 
