@@ -1,9 +1,9 @@
 package utils;
 
-//TODO: Implement Runnable
-
 import java.util.LinkedList;
 import java.util.Queue;
+
+import static utils.consts.*;
 
 public class Log implements Runnable {
 
@@ -12,10 +12,11 @@ public class Log implements Runnable {
 
     public Log() {
         if (t == null) {
+            System.out.println("No log running. Creating log");
             t = new Thread(this);
             t.setName("Log thread");
-            t.setPriority(8);
-
+            t.setPriority(LOG_PRIORITY);
+            System.out.println(t.getName() + " created");
             t.start();
         }
 
@@ -27,16 +28,18 @@ public class Log implements Runnable {
 
     @Override
     public void run() {
-        int rate = 1;
+        //The more message, the less it respond
+        int rate = STANDARD_LOG_RATE;
+
         while (true) {
             if (!q.isEmpty()) {
                 System.out.println(q.poll());
-                rate = 1;
+                rate = (int) Math.min(rate * LOG_RATE_INCREASE_RATE, MAXIMUM_LOG_RATE);
             } else {
-                rate = Math.max(rate + 1, 5000);
+                rate = (int) Math.max(MINIMUM_LOG_RATE, rate * consts.LOG_RATE_DECAY_RATE);
             }
             try {
-                Thread.sleep(100 * rate);
+                Thread.sleep(rate * SLEEP_TIME_PER_RATE);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

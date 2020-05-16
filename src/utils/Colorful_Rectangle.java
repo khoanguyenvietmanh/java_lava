@@ -6,8 +6,8 @@ import javafx.scene.shape.Rectangle;
 
 public class Colorful_Rectangle extends Rectangle {
 
-    private static final Color fill_color = Consts.FILL_COLOR_NORMAL;
-    private static final Color stroke_color = Consts.STROKE_COLOR_NORMAL;
+    private static final Color fill_color = consts.FILL_COLOR_NORMAL;
+    private static final Color stroke_color = consts.STROKE_COLOR_NORMAL;
 
 
     public Colorful_Rectangle() {

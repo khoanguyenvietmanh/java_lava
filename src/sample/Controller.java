@@ -42,38 +42,39 @@ public class Controller {
     @FXML
     void start_running(ActionEvent event) {
         my_Log.print("Start button clicked!\n" +
-                "Now running!");
+                "Now running!\n");
     }
 
     @FXML
     void one_step_forward(ActionEvent event) {
         my_Log.print("Next button pressed:\n" +
-                "Go to next action");
+                "Go to next action\n");
     }
 
     @FXML
     void pause_running(ActionEvent event) {
         my_Log.print("Pause button pressed:\n" +
-                "Stop action");
+                "Stop action\n");
     }
 
     @FXML
     void one_step_backward(ActionEvent event) {
         my_Log.print("Backward button pressed:\n" +
-                "Go to previous action");
+                "Go to previous action\n");
     }
 
     @FXML
     void back_to_start(ActionEvent event) {
         my_Log.print("Reset button pressed:\n" +
-                "Back to top");
+                "Back to top\n");
 
     }
 
     @FXML
     void cancel_program(ActionEvent event) {
-        my_Log.print("Cancel button pressed:\n" +
-                "Now exiting");
+        System.out.println("Cancel button pressed:\n" +
+                "Now exiting\n");
+        Platform.exit();
         System.exit(0);
     }
 
@@ -94,7 +95,7 @@ public class Controller {
         my_Log.print("Now painting array");
         paint_Board(no_of_rect, width_per_rect, my_Array);
 
-        my_Log.print("Finish painting");
+        my_Log.print("Finish painting\n");
     }
 
 
@@ -103,15 +104,14 @@ public class Controller {
             @Override
             public void run() {
                 for (int i = 0; i < no_of_rect; i++) {
-                    double rect_height = Math.min(
-                            my_Array.getNum_array()[i] * 10,
-                            visual_board.getHeight() - Consts.DISTANCE_FROM_RECT_TO_UPPER_BOUND);
+                    double rect_height =
+                            (1 - my_Array.getNum_Array()[i]) * visual_board.getHeight();
 
                     Colorful_Rectangle rect = new Colorful_Rectangle(
                             i * width_per_rect,
-                            visual_board.getHeight() - rect_height,
+                            rect_height,
                             width_per_rect,
-                            rect_height
+                            visual_board.getHeight() - rect_height
                     );
 
                     Platform.runLater(new Runnable() {
